@@ -192,9 +192,9 @@ def train(
         print(f'{datetime.now().time().replace(microsecond=0)} --- '
                   f'Epoch: {epoch + 1}\t'
                   f'Train loss: {train_loss:.4f}\t'
-                  f'Test loss: {valid_loss:.4f}\t'
+                  f'Test loss: {test_loss:.4f}\t'
                   f'Train accuracy: {100 * train_acc:.2f}\t'
-                  f'Test accuracy: {100 * valid_acc:.2f}')
+                  f'Test accuracy: {100 * test_acc:.2f}')
         
 
         # Update result dictionary
