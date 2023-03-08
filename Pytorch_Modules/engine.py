@@ -121,7 +121,7 @@ def test_step(
 
         # Calculate and accumulate accuracy
         test_pred_labels = torch.argmax(torch.softmax(test_pred_logits, dim=1), dim=1)
-        test_acc = (test_pred_labels == y).sum().item() / len(test_pred_logits)
+        test_acc += (test_pred_labels == y).sum().item() / len(test_pred_logits)
 
     # Adjust metrics to get average loss and accuracy per batch
     test_loss = test_loss / len(dataloader)
