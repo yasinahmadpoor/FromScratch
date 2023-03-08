@@ -183,7 +183,7 @@ def train(
                                            loss_fn=loss_fn,
                                            optimizer=optimizer,
                                            device=device)
-        test_loss, test_acc = train_step(model=model,
+        test_loss, test_acc = test_step(model=model,
                                            dataloader=test_dataloader,
                                            loss_fn=loss_fn,
                                            device=device)
