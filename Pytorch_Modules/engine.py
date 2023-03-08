@@ -11,6 +11,7 @@ Original file is located at
 contains functions to training and testing a Pytorch model
 """
 import torch
+from datetime import datetime 
 
 from tqdm.auto import tqdm
 from typing import List, Dict, Tuple
@@ -45,7 +46,7 @@ def train_step(
     train_loss, train_acc = 0, 0 
 
     # Loop through data loader data batches
-    for batch, (X,y) in enumerate(dataloader):
+    for batch, (X,y) in tqdm(enumerate(dataloader), nclos=100, desc= 'training ...'):
       
       # Send data to target device
       X, y = X.to(device), y.to(device)
@@ -61,7 +62,7 @@ def train_step(
       optimizer.zero_grad()
 
       # 4. Loss backward
-      loss.backword()
+      loss.backward()
 
       # Optimizer step
       optimizer.step()
@@ -106,7 +107,7 @@ def test_step(
     # Turn on inference context manager
     with torch.inference_mode():
       # Loop through DataLoader batches
-      for batch, (X, y) in enumerate(dataloader):
+      for batch, (X, y) in tqdm(enumerate(dataloader), ncols=100, desc='testing ...'):
 
         # Send data to target device
         X, y = X.to(device), y.to(device)
@@ -178,23 +179,22 @@ def train(
     # Loop through training and testing steps for a number of epochs
     for epoch in tqdm(range(epochs)):
         train_loss, train_acc = train_step(model=model,
-                                           dataloader=train_data,
+                                           dataloader=train_dataloader,
                                            loss_fn=loss_fn,
                                            optimizer=optimizer,
-                                           device=devie)
+                                           device=device)
         test_loss, test_acc = train_step(model=model,
-                                           dataloader=test_data,
+                                           dataloader=test_dataloader,
                                            loss_fn=loss_fn,
-                                           device=devie)
+                                           device=device)
         
         # Print out what's happening
-        print(
-            f"Epoch: {epoch + 1} | "
-            f"train_loss: {train_loss} | "
-            f"train_acc: {train_acc} | "
-            f"test_loss: {test_loss} | "
-            f"test_acc: {test_acc} | "
-            )
+        print(f'{datetime.now().time().replace(microsecond=0)} --- '
+                  f'Epoch: {epoch + 1}\t'
+                  f'Train loss: {train_loss:.4f}\t'
+                  f'Test loss: {valid_loss:.4f}\t'
+                  f'Train accuracy: {100 * train_acc:.2f}\t'
+                  f'Test accuracy: {100 * valid_acc:.2f}')
         
 
         # Update result dictionary
