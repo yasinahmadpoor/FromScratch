@@ -189,12 +189,12 @@ def train(
                                            device=device)
         
         # Print out what's happening
-        print(f'{datetime.now().time().replace(microsecond=0)} --- '
-                  f'Epoch: {epoch + 1}\t'
-                  f'Train loss: {train_loss:.4f}\t'
-                  f'Test loss: {test_loss:.4f}\t'
-                  f'Train accuracy: {100 * train_acc:.2f}\t'
-                  f'Test accuracy: {100 * test_acc:.2f}')
+        print(f"{datetime.now().time().replace(microsecond=0)} --- "
+                  f"Epoch: {epoch + 1} | "
+                  f"train_loss: {train_loss:.4f} | "
+                  f"train_acc: {100*train_acc:.4f} | "
+                  f"test_loss: {test_loss:.4f} | "
+                  f"test_acc: {100*test_acc:.4f}")
         
 
         # Update result dictionary
