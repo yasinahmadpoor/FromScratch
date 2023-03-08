@@ -46,7 +46,7 @@ def train_step(
     train_loss, train_acc = 0, 0 
 
     # Loop through data loader data batches
-    for batch, (X,y) in tqdm(enumerate(dataloader), nclos=100, desc= 'training ...'):
+    for batch, (X,y) in tqdm(enumerate(dataloader)):
       
       # Send data to target device
       X, y = X.to(device), y.to(device)
@@ -107,7 +107,7 @@ def test_step(
     # Turn on inference context manager
     with torch.inference_mode():
       # Loop through DataLoader batches
-      for batch, (X, y) in tqdm(enumerate(dataloader), ncols=100, desc='testing ...'):
+      for batch, (X, y) in tqdm(enumerate(dataloader)):
 
         # Send data to target device
         X, y = X.to(device), y.to(device)
